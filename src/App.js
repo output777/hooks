@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
+function useInput(defaultValue) {
+  const [value, setValue] = useState(defaultValue);
+
+  const onChange = e => {
+    const {value} = e.target;
+    setValue(value);
+  }
+  return {value, onChange};
+}
+
+
 function App() {
+  const name = useInput('')
+  console.log(name);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>Use Hooks</h1>
+      <br />
+      <input {...name} placeholder='이름을 입력하세요' />
     </div>
   );
 }
