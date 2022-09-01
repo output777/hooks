@@ -1,25 +1,24 @@
-import { useState } from 'react';
+import useInput from './hooks/useInput';
 import './App.css';
 
-function useInput(defaultValue) {
-  const [value, setValue] = useState(defaultValue);
-
-  const onChange = e => {
-    const {value} = e.target;
-    setValue(value);
-  }
-  return {value, onChange};
-}
-
-
 function App() {
-  const name = useInput('')
-  console.log(name);
+  const maxLen = (value) => value.length < 10;
+  const [title, onChange, reset] = useInput('', maxLen)
+
+ const handleReset =() => {
+  reset();
+ }
+
   return (
     <div className='App'>
       <h1>Use Hooks</h1>
       <br />
-      <input {...name} placeholder='이름을 입력하세요' />
+      <input 
+      placeholder='이름을 입력하세요' 
+      value={title}
+      onChange={onChange}
+      />
+      <button onClick={handleReset}>초기화</button>
     </div>
   );
 }
